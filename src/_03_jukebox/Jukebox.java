@@ -7,6 +7,8 @@ package _03_jukebox;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,9 +27,12 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable, ActionListener {
+public class Jukebox implements Runnable, ActionListener, MouseListener {
 
 	Song song1= new Song("song1.mp3");
+	Song song2= new Song("song2.mp3");
+	JLabel label;
+	JLabel label2;
 	public void run() {
 
 		// 1. Find an mp3 on your computer or on the Internet.
@@ -39,14 +44,17 @@ public class Jukebox implements Runnable, ActionListener {
     	JFrame frame= new JFrame();
     	frame.setVisible(true);
     	JPanel panel= new JPanel();
-    	JButton button= new JButton();
     	frame.add(panel);
-    	panel.add(button);
     	frame.pack();
-    	button.setText("Drum beats");
+    	label= loadImage("MonaLisa.jpg");
+    	label2= loadImage("USETHSONE.jpeg");
     	frame.setTitle("Select a song");
-    	button.addActionListener(this);
+    	panel.add(label2);
+    	label.addMouseListener(this);
+    	label2.addMouseListener(this);
+    	panel.add(label);
     	frame.pack();
+    	
             
 		/*
 		 * 4. Create a user interface for your Jukebox so that the user can to
@@ -66,12 +74,58 @@ public class Jukebox implements Runnable, ActionListener {
 	}
 
 
+
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		JLabel labelpressed=(JLabel) e.getSource();
+		
+		if(labelpressed==label) {
+			song2.stop();
+			song1.play();
+		}
+		if(labelpressed==label2) {
+			song1.stop();
+			song2.play();
+		}
+		}
+	
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		for (int i = 0; i <= 10; i++) {
-    		song1.play();
-		}
+		
 	}
 
 }
